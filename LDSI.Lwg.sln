@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LDSI.Lwg", "LDSI.Lwg\LDSI.Lwg.csproj", "{EC4087AE-41BB-4A0E-9B6D-037D3F949D20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC4087AE-41BB-4A0E-9B6D-037D3F949D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4087AE-41BB-4A0E-9B6D-037D3F949D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4087AE-41BB-4A0E-9B6D-037D3F949D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4087AE-41BB-4A0E-9B6D-037D3F949D20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A95B12F1-A55B-47BE-8BF0-21A9AD0152F1}
+	EndGlobalSection
+EndGlobal
