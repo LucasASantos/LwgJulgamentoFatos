@@ -1,5 +1,6 @@
 using System;
 using LDSI.Lwg.Apresentacao.Data.Context;
+using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -19,8 +20,19 @@ namespace LDSI.Lwg.Apresentacao.Areas.Identity
                     options.UseMySQL(
                        context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>()
+                services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+              services.Configure<IdentityOptions>(options =>
+              {
+                // Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+              });
             });
         }
     }

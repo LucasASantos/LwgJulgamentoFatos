@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LDSI.Lwg.Apresentacao.Data.Context;
+using LDSI.Lwg.Apresentacao.Data.Repositories;
+using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,12 +34,13 @@ namespace LDSI.Lwg.Apresentacao
       services.AddDbContext<ApplicationDbContext>(options =>
         options.UseMySQL(
           Configuration.GetConnectionString("DefaultConnection")));
-      services.AddDefaultIdentity<IdentityUser>()
-        //.AddDefaultUI(UIFramework.Bootstrap4)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
 
       services.AddMvc()
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+      services.AddScoped<ICursoRepository, CursoRepository>();
+      services.AddScoped<ApplicationDbContext>();
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)

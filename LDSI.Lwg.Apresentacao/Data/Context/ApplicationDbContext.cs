@@ -1,8 +1,10 @@
-﻿using LDSI.Lwg.Apresentacao.Data.Mappings;
+﻿using System;
+using LDSI.Lwg.Apresentacao.Data.Mappings;
 using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 
 namespace LDSI.Lwg.Apresentacao.Data.Context
@@ -12,7 +14,7 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
       : base(options)
     {
-      
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,7 +41,12 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
 
       Mappings.Models.MappingModels(builder);
       Relations.MappingRelations(builder);
-
+      builder.Entity<ApplicationUser>(i => {
+        i.Property(o => o.EmailConfirmed).HasConversion<int>();
+        i.Property(o => o.LockoutEnabled).HasConversion<int>();
+        i.Property(o => o.PhoneNumberConfirmed).HasConversion<int>();
+        i.Property(o => o.TwoFactorEnabled).HasConversion<int>();
+      });
       base.OnModelCreating(builder);
     }
   }

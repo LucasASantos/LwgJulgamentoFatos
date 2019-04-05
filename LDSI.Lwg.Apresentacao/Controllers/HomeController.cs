@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LDSI.Lwg.Apresentacao.Controllers
 {
-  //[Authorize]
+  [Authorize]
   public class HomeController : Controller
   {
     public IActionResult Index()
