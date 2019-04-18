@@ -37,11 +37,12 @@ namespace LDSI.Lwg.Apresentacao.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Usuário é obrigatorio")]
+            [Display(Name = "Login")]
             public string UserName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Senha é obrigatorio")]
+            [Display(Name = "Senha")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
