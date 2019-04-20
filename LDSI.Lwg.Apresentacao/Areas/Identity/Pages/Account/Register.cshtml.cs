@@ -77,7 +77,7 @@ namespace LDSI.Lwg.Apresentacao.Areas.Identity.Pages.Account
       [Display(Name = "Email")]
       public string Email { get; set; }
 
-      [Required (ErrorMessage = "")]
+      [Required]
       [StringLength(100)]
       [DataType(DataType.Password)]
       [Display(Name = "Senha")]

@@ -38,7 +38,7 @@
             </div>
             <h3>Bem vindo ao LWG</h3>
             <p>Faça login</p>
-            <form class="m-t" role="form" action="#">
+            <form asp-route-returnUrl="@Model.ReturnUrl" class="m-t" role="form">
                 <div class="form-group">
                     <input asp-for="Input.UserName" type="text" class="form-control" placeholder="Login" />
                 </div>

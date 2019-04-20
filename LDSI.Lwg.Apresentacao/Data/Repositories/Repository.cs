@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using LDSI.Lwg.Apresentacao.Data.Context;
 using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,12 @@ namespace LDSI.Lwg.Apresentacao.Data.Repositories
       return DbSet.Find(id);
     }
 
+
+    public virtual async Task<TEntity> GetByIdAsync(Guid id)
+    {
+      return await DbSet.FindAsync(id);
+    }
+
     public virtual IQueryable<TEntity> GetAll()
     {
       return DbSet;
@@ -45,6 +52,11 @@ namespace LDSI.Lwg.Apresentacao.Data.Repositories
     public int SaveChanges()
     {
       return Db.SaveChanges();
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+      return await Db.SaveChangesAsync();
     }
 
     public void Dispose()

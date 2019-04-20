@@ -31,9 +31,9 @@ namespace LDSI.Lwg.Apresentacao
           options.MinimumSameSitePolicy = SameSiteMode.None;
         });
 
-      services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseMySQL(
-          Configuration.GetConnectionString("DefaultConnection")));
+      //services.AddDbContext<ApplicationDbContext>(options =>
+      //  options.UseMySQL(
+      //    Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddMvc()
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

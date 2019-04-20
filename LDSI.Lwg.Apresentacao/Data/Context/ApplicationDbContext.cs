@@ -17,11 +17,6 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
 
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-      base.OnConfiguring(optionsBuilder);
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<ApplicationUser>(entity => entity.Property(m => m.Id).HasMaxLength(80));
