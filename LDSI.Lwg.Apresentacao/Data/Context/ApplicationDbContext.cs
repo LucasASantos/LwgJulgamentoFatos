@@ -4,13 +4,12 @@ using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.Extensions.Configuration;
 
 namespace LDSI.Lwg.Apresentacao.Data.Context
 {
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
   {
+    //public virtual DbSet<Turma> Turmas { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
       : base(options)
     {

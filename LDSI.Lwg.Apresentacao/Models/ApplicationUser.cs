@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LDSI.Lwg.Apresentacao.Enums;
 using Microsoft.AspNetCore.Identity;
 
 
@@ -9,6 +10,7 @@ namespace LDSI.Lwg.Apresentacao.Models
   {
     public string Nome { get; set; }
     public Guid CursoId { get; set; }
+    public TipoUsuario TipoUsuario { get; set; }
 
     public virtual Curso Curso { get; set; }
     public virtual List<AlunoTurma> AlunosTurmas { get; set; }

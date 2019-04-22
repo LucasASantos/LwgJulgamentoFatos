@@ -1,4 +1,6 @@
-﻿using LDSI.Lwg.Apresentacao.Data.Context;
+﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using LDSI.Lwg.Apresentacao.Data.Context;
 using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using LDSI.Lwg.Apresentacao.Models;
 

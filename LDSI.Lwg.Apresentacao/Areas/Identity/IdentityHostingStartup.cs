@@ -17,10 +17,6 @@ namespace LDSI.Lwg.Apresentacao.Areas.Identity
         {
 
           builder.ConfigureServices((context, services) => {
-            services.AddDbContext<ApplicationDbContext>(options =>
-              options.UseMySQL(
-                context.Configuration.GetConnectionString("DefaultConnection")));
-
                services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 

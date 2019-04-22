@@ -1,0 +1,35 @@
+@model LDSI.Lwg.Apresentacao.Models.Turma
+
+@{
+    ViewData["Title"] = "Turmas";
+}
+
+<div>
+    <h4>Turma</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Disciplina)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Disciplina.DisciplinaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Professor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Professor.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TurmaId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
