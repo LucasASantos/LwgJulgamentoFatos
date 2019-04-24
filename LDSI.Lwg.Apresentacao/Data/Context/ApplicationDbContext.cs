@@ -9,7 +9,7 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
 {
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
   {
-    //public virtual DbSet<Fato> Fatos { get; set; }
+    //public virtual DbSet<Turma> Turmas { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
       : base(options)
     {
