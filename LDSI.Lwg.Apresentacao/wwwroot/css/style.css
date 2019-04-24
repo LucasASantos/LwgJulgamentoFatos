@@ -6950,6 +6950,7 @@ body.mini-navbar.fixed-sidebar .logo-element {
     font-size: 180px;
     font-weight: 800;
     letter-spacing: -10px;
+    margin-left: -35px;
     margin-bottom: 0;
 }
 

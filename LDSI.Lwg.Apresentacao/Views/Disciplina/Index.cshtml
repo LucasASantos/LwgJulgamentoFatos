@@ -4,36 +4,39 @@
     ViewData["Title"] = "Disciplinas";
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Curso)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Curso.CursoId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DisciplinaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DisciplinaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DisciplinaId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container col-md-10 mt-5">
+    <p>
+        <a asp-action="Create"><h2>Criar nova disciplina</h2></a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Curso)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso.CursoId)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DisciplinaId">Editar</a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhar</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DisciplinaId">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

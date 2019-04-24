@@ -4,32 +4,47 @@
     ViewData["Title"] = "Turmas";
 }
 
-<div>
-    <h4>Turma</h4>
+<div class="container col-md-10 mt-5">
+    <h3>Turma</h3>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Disciplina)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Disciplina.DisciplinaId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Professor)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Professor.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.TurmaId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    <div class="row mt-5">
+        <div class="container col-md-5">
+
+            <div class="mb-5">
+                <h3>Detalhes da Turma</h3>
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Codigo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Disciplina)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Disciplina.DisciplinaId)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Professor)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Professor.Id)
+                </dd>
+            </dl>
+
+            <div>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.TurmaId">Editar</a>
+               
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <a class="text-info" asp-action="Index">Voltar a lista</a>
+    </div>
+
 </div>
 
