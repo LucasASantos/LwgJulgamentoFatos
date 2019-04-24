@@ -2,11 +2,9 @@
 
 <h4>Curso</h4>
 <hr />
-<div class="row">
+<div class="row mt-5">
     <div class="container col-md-5">
-        <div class="mb-5 text-center">
-            <h4>Editar Curso</h4>
-        </div>
+        <h4 class="mb-5">Editar Curso</h4>       
 
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,7 +19,7 @@
                 <input asp-for="Unidade" class="form-control" />
                 <span asp-validation-for="Unidade" class="text-danger"></span>
             </div>
-            <div class="form-group text-center">
+            <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
@@ -29,6 +27,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Voltar a lista.</a>
+    <a class="text-info" asp-action="Index">Voltar a lista.</a>
 </div>
 

@@ -6,8 +6,10 @@
 
 <h4>Disciplina</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row mt-5">
+    <div class="container col-md-5">
+        <h4 class="mb-5">Editar Disciplina</h4>
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DisciplinaId" />
@@ -29,6 +31,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Voltar a lista</a>
+    <a class="text-info" asp-action="Index">Voltar a lista</a>
 </div>
 

@@ -29,9 +29,9 @@
                 @Html.DisplayFor(modelItem => item.Curso.CursoId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.DisciplinaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhar</a> |
-                <a asp-action="Delete" asp-route-id="@item.DisciplinaId">Excluir</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DisciplinaId">Editar</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhar</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DisciplinaId">Excluir</a>
             </td>
         </tr>
 }

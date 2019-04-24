@@ -3,25 +3,34 @@
 @{
     ViewData["Title"] = "Disciplinas";
 }
-<div>
-    <h4>Disciplina</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Curso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Curso.CursoId)
-        </dd>
-    </dl>
+<h4>Disciplina</h4>
+<hr />
+<div class="row mt-5">
+    <div class="container col-md-5">
+        <div class="mb-5">
+            <h3>Detalhes da Disciplina</h3>
+        </div>
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Curso)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Curso.CursoId)
+            </dd>
+        </dl>
+
+        <div>
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.DisciplinaId">Editar</a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.DisciplinaId">Editar</a> |
-    <a asp-action="Index">Voltar a lista</a>
+<div class="mt-3">
+    <a class="text-info" asp-action="Index">Voltar a lista</a>
 </div>
+
