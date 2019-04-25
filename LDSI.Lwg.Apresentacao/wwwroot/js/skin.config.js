@@ -205,22 +205,22 @@ if (localStorageSupport) {
     var boxedlayout = localStorage.getItem("boxedlayout");
     var fixedfooter = localStorage.getItem("fixedfooter");
 
-    if (collapse == 'on') {
-        $('#collapsemenu').prop('checked', 'checked')
+    if (collapse === 'on') {
+        $('#collapsemenu').prop('checked', 'checked');
     }
-    if (fixedsidebar == 'on') {
-        $('#fixedsidebar').prop('checked', 'checked')
+    if (fixedsidebar === 'on') {
+        $('#fixedsidebar').prop('checked', 'checked');
     }
-    if (fixednavbar == 'on') {
-        $('#fixednavbar').prop('checked', 'checked')
+    if (fixednavbar === 'on') {
+        $('#fixednavbar').prop('checked', 'checked');
     }
-    if (fixednavbar2 == 'on') {
-        $('#fixednavbar2').prop('checked', 'checked')
+    if (fixednavbar2 === 'on') {
+        $('#fixednavbar2').prop('checked', 'checked');
     }
-    if (boxedlayout == 'on') {
-        $('#boxedlayout').prop('checked', 'checked')
+    if (boxedlayout === 'on') {
+        $('#boxedlayout').prop('checked', 'checked');
     }
-    if (fixedfooter == 'on') {
-        $('#fixedfooter').prop('checked', 'checked')
+    if (fixedfooter === 'on') {
+        $('#fixedfooter').prop('checked', 'checked');
     }
 }

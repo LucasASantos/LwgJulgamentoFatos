@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using LDSI.Lwg.Apresentacao.Data.Mappings;
 using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +9,6 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
 {
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
   {
-    //public virtual DbSet<Fato> Fatos { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
       : base(options)
     {

@@ -14,9 +14,9 @@ $(document).ready(function () {
 
     // Add body-small class if window less than 768px
     if ($(window).width() < 769) {
-        $('body').addClass('body-small')
+        $('body').addClass('body-small');
     } else {
-        $('body').removeClass('body-small')
+        $('body').removeClass('body-small');
     }
 
     // MetisMenu
@@ -139,7 +139,7 @@ $(document).ready(function () {
     // Add slimscroll to element
     $('.full-height-scroll').slimscroll({
         height: '100%'
-    })
+    });
 });
 
 
@@ -183,20 +183,20 @@ function fix_height() {
 $(window).bind("load resize ", function () {
 
     // Full height of sidebar
-    setTimeout(function () {
+    setTimeout(function() {
         if (!$("body").hasClass('body-small')) {
             fix_height();
         }
-    })
+    });
 
 });
 
 // Minimalize menu when screen is less than 768px
 $(window).bind("resize", function () {
     if ($(this).width() < 769) {
-        $('body').addClass('body-small')
+        $('body').addClass('body-small');
     } else {
-        $('body').removeClass('body-small')
+        $('body').removeClass('body-small');
     }
 });
 
@@ -213,7 +213,7 @@ $(document).ready(function () {
 
         var body = $('body');
 
-        if (fixedsidebar == 'on') {
+        if (fixedsidebar === 'on') {
             body.addClass('fixed-sidebar');
             $('.sidebar-collapse').slimScroll({
                 height: '100%',
@@ -221,7 +221,7 @@ $(document).ready(function () {
             });
         }
 
-        if (collapse == 'on') {
+        if (collapse === 'on') {
             if (body.hasClass('fixed-sidebar')) {
                 if (!body.hasClass('body-small')) {
                     body.addClass('mini-navbar');
@@ -234,16 +234,16 @@ $(document).ready(function () {
             }
         }
 
-        if (fixednavbar == 'on') {
+        if (fixednavbar === 'on') {
             $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
             body.addClass('fixed-nav');
         }
 
-        if (boxedlayout == 'on') {
+        if (boxedlayout === 'on') {
             body.addClass('boxed-layout');
         }
 
-        if (fixedfooter == 'on') {
+        if (fixedfooter === 'on') {
             $(".footer").addClass('fixed');
         }
     }
@@ -251,7 +251,7 @@ $(document).ready(function () {
 
 // check if browser support HTML5 local storage
 function localStorageSupport() {
-    return (('localStorage' in window) && window['localStorage'] !== null)
+    return ('localStorage' in window) && window['localStorage'] !== null;
 }
 
 // For demo purpose - animation css script

@@ -1,0 +1,61 @@
+@model IEnumerable<LDSI.Lwg.Apresentacao.Models.Integrante>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EhLider)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aluno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipe)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EhLider)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aluno.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipe.EquipeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IntegranteId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IntegranteId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IntegranteId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

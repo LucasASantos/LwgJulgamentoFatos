@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LDSI.Lwg.Apresentacao.IoC;
 
 namespace LDSI.Lwg.Apresentacao
 {
@@ -38,11 +40,8 @@ namespace LDSI.Lwg.Apresentacao
       services.AddMvc()
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+      IoC.IoC.Configure(services);
 
-      services.AddScoped<ICursoRepository, CursoRepository>();
-      services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
-      services.AddScoped<ITurmaRepository, TurmaRepository>();
-      services.AddScoped<ApplicationDbContext>();
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
