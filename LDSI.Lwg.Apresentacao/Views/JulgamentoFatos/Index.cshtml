@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.Professor.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.JulgamentoFatosId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.JulgamentoFatosId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JulgamentoFatosId">Delete</a>
+                <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.JulgamentoFatosId"></a> |
+                <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.JulgamentoFatosId"></a> |
+                <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.JulgamentoFatosId"></a>
             </td>
         </tr>
 }

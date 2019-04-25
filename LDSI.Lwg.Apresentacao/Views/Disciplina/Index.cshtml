@@ -6,8 +6,9 @@
 
 <div class="container col-md-10 mt-5">
     <p>
-        <a asp-action="Create"><h2>Criar nova disciplina</h2></a>
+        <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus"></a> Criar nova Disciplina</h3>
     </p>
+    
     <table class="table">
         <thead>
             <tr>
@@ -31,9 +32,9 @@
                         @Html.DisplayFor(modelItem => item.Curso.CursoId)
                     </td>
                     <td>
-                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DisciplinaId">Editar</a>
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhar</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DisciplinaId">Excluir</a>
+                        <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.DisciplinaId"></a>
+                        <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.DisciplinaId"></a>
+                        <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.DisciplinaId"></a>
                     </td>
                 </tr>
             }
