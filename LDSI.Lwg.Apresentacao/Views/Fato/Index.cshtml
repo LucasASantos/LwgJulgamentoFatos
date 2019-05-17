@@ -13,7 +13,7 @@
 </head>
 <body>
 <p>
-    <a asp-action="Create">Create New</a>
+    <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus"></a> Criar novo Fato</h3>
 </p>
 <table class="table">
     <thead>
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.JulgamentoFatos.JulgamentoFatosId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FatoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FatoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FatoId">Delete</a>
+                <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.FatoId"></a> |
+                <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.FatoId"></a> |
+                <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.FatoId"></a>
             </td>
         </tr>
 }
