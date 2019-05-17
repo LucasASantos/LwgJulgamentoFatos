@@ -40,8 +40,12 @@ namespace LDSI.Lwg.Apresentacao
       services.AddMvc()
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-      IoC.IoC.Configure(services);
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("Professor", policy => policy.RequireClaim("Professor"));
+      });
 
+      IoC.IoC.Configure(services);
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)

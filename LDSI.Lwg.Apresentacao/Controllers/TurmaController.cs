@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,7 @@ using LDSI.Lwg.Apresentacao.Data.Context;
 using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LDSI.Lwg.Apresentacao.Controllers
 {
@@ -17,60 +17,53 @@ namespace LDSI.Lwg.Apresentacao.Controllers
     {
         private readonly ITurmaRepository _turmaRepository;
         private readonly IDisciplinaRepository _disciplinaRepository;
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TurmaController(ITurmaRepository turmaRepository, IDisciplinaRepository disciplinaRepository, ApplicationDbContext context)
+        public TurmaController(ITurmaRepository turmaRepository, IDisciplinaRepository disciplinaRepository, UserManager<ApplicationUser> userManager)
         {
           _turmaRepository = turmaRepository;
           _disciplinaRepository = disciplinaRepository;
-          _context = context;
+          _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _turmaRepository.GetAll().Include(t => t.Disciplina).Include(t => t.Professor);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        public async Task<IActionResult> Index() 
+            => View(_turmaRepository.GetAll().Include(c=> c.Professor).ToList());
 
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
+            if (id != null)
             {
-                return NotFound();
+                var turma = await _turmaRepository.GetAll()
+                    .Include(t => t.Disciplina)
+                    .Include(t => t.Professor)
+                    .FirstOrDefaultAsync(m => m.TurmaId == id);
+                if (turma != null)
+                {
+                    return View(turma);
+                }
+                
             }
-
-            var turma = await _turmaRepository.GetAll()
-                .Include(t => t.Disciplina)
-                .Include(t => t.Professor)
-                .FirstOrDefaultAsync(m => m.TurmaId == id);
-            if (turma == null)
-            {
-                return NotFound();
-            }
-
-            return View(turma);
+            return NotFound();
         }
 
         public IActionResult Create()
         {
             ViewData["DisciplinaId"] = new SelectList(_disciplinaRepository.GetAll().ToList(), "DisciplinaId", "Nome");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Nome");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TurmaId,Codigo,DisciplinaId,UserId")] Turma turma)
+        public async Task<IActionResult> Create(Turma turma)
         {
             if (ModelState.IsValid)
             {
-                turma.TurmaId = Guid.NewGuid();
+                turma.UserId = await _userManager.GetUserIdAsync(await _userManager.GetUserAsync(User));
                 _turmaRepository.Add(turma);
                 await _turmaRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DisciplinaId"] = new SelectList(_disciplinaRepository.GetAll().ToList(), "DisciplinaId", "DisciplinaId", turma.DisciplinaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Nome", turma.UserId);
             return View(turma);
         }
 
@@ -87,13 +80,12 @@ namespace LDSI.Lwg.Apresentacao.Controllers
                 return NotFound();
             }
             ViewData["DisciplinaId"] = new SelectList(_disciplinaRepository.GetAll().ToList(), "DisciplinaId", "DisciplinaId", turma.DisciplinaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Nome", turma.UserId);
             return View(turma);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("TurmaId,Codigo,DisciplinaId,UserId")] Turma turma)
+        public async Task<IActionResult> Edit(Guid id, Turma turma)
         {
             if (id != turma.TurmaId)
             {
@@ -121,7 +113,6 @@ namespace LDSI.Lwg.Apresentacao.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DisciplinaId"] = new SelectList(_disciplinaRepository.GetAll().ToList(), "DisciplinaId", "DisciplinaId", turma.DisciplinaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Nome", turma.UserId);
             return View(turma);
         }
 
@@ -153,9 +144,8 @@ namespace LDSI.Lwg.Apresentacao.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TurmaExists(Guid id)
-        {
-            return _turmaRepository.GetAll().Any(e => e.TurmaId == id);
-        }
+        private bool TurmaExists(Guid id) => _turmaRepository.GetAll().Any(e => e.TurmaId == id);
+
+
     }
 }

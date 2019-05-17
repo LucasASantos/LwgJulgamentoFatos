@@ -75,18 +75,19 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<short>(nullable: false),
+                    EmailConfirmed = table.Column<int>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<short>(nullable: false),
-                    TwoFactorEnabled = table.Column<short>(nullable: false),
+                    PhoneNumberConfirmed = table.Column<int>(nullable: false),
+                    TwoFactorEnabled = table.Column<int>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<short>(nullable: false),
+                    LockoutEnabled = table.Column<int>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
-                    CursoId = table.Column<byte[]>(nullable: false)
+                    CursoId = table.Column<byte[]>(nullable: false),
+                    TipoUsuario = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,8 +264,8 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 {
                     table.PrimaryKey("PK_Turma", x => x.TurmaId);
                     table.ForeignKey(
-                        name: "FK_Turma_Disciplina_DisciplinaId",
-                        column: x => x.DisciplinaId,
+                        name: "FK_Turma_Disciplina_TurmaId",
+                        column: x => x.TurmaId,
                         principalTable: "Disciplina",
                         principalColumn: "DisciplinaId",
                         onDelete: ReferentialAction.Cascade);
@@ -274,28 +275,6 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fato",
-                columns: table => new
-                {
-                    FatoId = table.Column<byte[]>(nullable: false),
-                    Texto = table.Column<string>(nullable: true),
-                    Verdadeiro = table.Column<short>(nullable: false),
-                    Ordem = table.Column<int>(nullable: false),
-                    Topicos = table.Column<string>(nullable: true),
-                    JulgamentoFatosId = table.Column<byte[]>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fato", x => x.FatoId);
-                    table.ForeignKey(
-                        name: "FK_Fato_JulgamentoFatos_FatoId",
-                        column: x => x.FatoId,
-                        principalTable: "JulgamentoFatos",
-                        principalColumn: "JulgamentoFatosId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,6 +295,35 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AlunoTurma_Turma_TurmaId",
+                        column: x => x.TurmaId,
+                        principalTable: "Turma",
+                        principalColumn: "TurmaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fato",
+                columns: table => new
+                {
+                    FatoId = table.Column<byte[]>(nullable: false),
+                    Texto = table.Column<string>(nullable: true),
+                    Verdadeiro = table.Column<int>(nullable: false),
+                    Ordem = table.Column<int>(nullable: false),
+                    Topicos = table.Column<string>(nullable: true),
+                    JulgamentoFatosId = table.Column<byte[]>(nullable: false),
+                    TurmaId = table.Column<byte[]>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fato", x => x.FatoId);
+                    table.ForeignKey(
+                        name: "FK_Fato_JulgamentoFatos_FatoId",
+                        column: x => x.FatoId,
+                        principalTable: "JulgamentoFatos",
+                        principalColumn: "JulgamentoFatosId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Fato_Turma_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turma",
                         principalColumn: "TurmaId",
@@ -401,6 +409,11 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 column: "CursoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Fato_TurmaId",
+                table: "Fato",
+                column: "TurmaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Integrante_UserId",
                 table: "Integrante",
                 column: "UserId");
@@ -414,11 +427,6 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 name: "IX_Resposta_EqupeId",
                 table: "Resposta",
                 column: "EqupeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Turma_DisciplinaId",
-                table: "Turma",
-                column: "DisciplinaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Turma_UserId",
@@ -453,9 +461,6 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 name: "Resposta");
 
             migrationBuilder.DropTable(
-                name: "Turma");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -465,10 +470,13 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 name: "Fato");
 
             migrationBuilder.DropTable(
-                name: "Disciplina");
+                name: "JulgamentoFatos");
 
             migrationBuilder.DropTable(
-                name: "JulgamentoFatos");
+                name: "Turma");
+
+            migrationBuilder.DropTable(
+                name: "Disciplina");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -21,6 +21,7 @@
                     @Html.DisplayNameFor(model => model.Professor)
                 </th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -31,16 +32,19 @@
                         @Html.DisplayFor(modelItem => item.Codigo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Disciplina.DisciplinaId)
+                        @Html.DisplayFor(modelItem => item.Disciplina.Nome)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Professor.Id)
+                        @Html.DisplayFor(modelItem => item.Professor.Nome)
                     </td>
                     <td>
-                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.TurmaId">Editar</a>
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.TurmaId">Detalhar</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TurmaId">Excluir</a>
+                        @if (@*User.Claims.Any(c => c.Value == TipoUsuario.Professor.ToString())*@true)
+{
+<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.TurmaId">Editar</a>
+<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TurmaId">Excluir</a>
+}
                     </td>
+                    <td><a class="btn btn-info" asp-action="Index" asp-controller="JulgamentoFatos" asp-route-turmaId="@item.TurmaId">Julgamentos de fatos</a></td>
                 </tr>
             }
         </tbody>

@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190402170833_Initial.cs" />
-    <Compile Remove="Migrations\20190402170833_Initial.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap-datepicker\.github\ISSUE_TEMPLATE.md" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />

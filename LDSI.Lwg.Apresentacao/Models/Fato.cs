@@ -15,9 +15,11 @@ namespace LDSI.Lwg.Apresentacao.Models
     public int Ordem { get; set; }
     public string Topicos { get; set; }
     public Guid JulgamentoFatosId { get; set; }
+    public Guid TurmaId { get; set; }
 
     public virtual List<Resposta> Respostas { get; set; }
     public virtual JulgamentoFatos JulgamentoFatos { get; set; }
+    public virtual Turma Turma { get; set; }
 
 
   }

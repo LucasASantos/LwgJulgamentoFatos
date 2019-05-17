@@ -151,9 +151,15 @@ namespace LDSI.Lwg.Apresentacao.Migrations
 
                     b.Property<string>("Topicos");
 
-                    b.Property<bool>("Verdadeiro");
+                    b.Property<byte[]>("TurmaId")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
+                    b.Property<int>("Verdadeiro");
 
                     b.HasKey("FatoId");
+
+                    b.HasIndex("TurmaId");
 
                     b.ToTable("Fato");
                 });
@@ -224,7 +230,6 @@ namespace LDSI.Lwg.Apresentacao.Migrations
             modelBuilder.Entity("LDSI.Lwg.Apresentacao.Models.Turma", b =>
                 {
                     b.Property<byte[]>("TurmaId")
-                        .ValueGeneratedOnAdd()
                         .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
 
                     b.Property<string>("Codigo");
@@ -236,8 +241,6 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("TurmaId");
-
-                    b.HasIndex("DisciplinaId");
 
                     b.HasIndex("UserId");
 
@@ -399,6 +402,11 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                         .WithMany("Fatos")
                         .HasForeignKey("FatoId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LDSI.Lwg.Apresentacao.Models.Turma", "Turma")
+                        .WithMany("Fatos")
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LDSI.Lwg.Apresentacao.Models.Integrante", b =>
@@ -437,7 +445,7 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                 {
                     b.HasOne("LDSI.Lwg.Apresentacao.Models.Disciplina", "Disciplina")
                         .WithMany("Turmas")
-                        .HasForeignKey("DisciplinaId")
+                        .HasForeignKey("TurmaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LDSI.Lwg.Apresentacao.Models.ApplicationUser", "Professor")
