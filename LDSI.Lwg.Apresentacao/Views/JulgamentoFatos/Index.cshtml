@@ -1,50 +1,36 @@
-@model IEnumerable<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos>
-
+@model IEnumerable<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos>;
+@using LDSI.Lwg.Apresentacao.Enums;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    var caminhoListJF = "../JulgamentoFatos/Partial/_ListJF";
+}
 
 <p>
-    <a class="btn btn-info" asp-action="Create" asp-route-turmaId="@ViewBag.TurmaId">Create New</a>
+    <a class="btn btn-info" asp-action="Create" asp-route-turmaId="@ViewBag.TurmaId">Criar novo julgamento de fatos</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TamanhoEquipe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TempoExibicao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Professor)
-            </th>
-            <th></th>
 
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TamanhoEquipe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TempoExibicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Professor.Id)
-            </td>
-            <td>
-                <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.JulgamentoFatosId"></a> |
-                <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.JulgamentoFatosId"></a> |
-                <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.JulgamentoFatosId"></a>
-            </td>
-        </tr>
+
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Execucao))
+{
+    <h3>Em execução</h3>
+    @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Execucao).ToList())
+    <hr />
 }
-    </tbody>
-</table>
-
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Criacao))
+{
+    <h4>Em criação</h4>
+    @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Criacao).ToList())
+    <hr />
+}
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Preparacao))
+{
+    <h4>Em preparação</h4>
+    @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Preparacao).ToList())
+    <hr />
+}
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Execucao))
+{
+    <h4>Finalizado</h4>
+    @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Finalizado).ToList())
+    <hr />
+}

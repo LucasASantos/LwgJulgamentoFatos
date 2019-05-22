@@ -9,116 +9,124 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LDSI.Lwg.Apresentacao.Controllers
 {
-  [Authorize(Policy = "Professor")]
-  public class FatoController : Controller
-  {
-    private readonly IFatoRepository _fatoRepository;
-
-    public FatoController(IFatoRepository fatoRepository)
+    [Authorize(Policy = "Professor")]
+    public class FatoController : Controller
     {
-      _fatoRepository = fatoRepository;
-    }
-    public async Task<IActionResult> Index()
-    {
-      return View(await _fatoRepository.GetAll().ToListAsync());
-    }
+        private readonly IFatoRepository _fatoRepository;
 
-    public async Task<IActionResult> Details(Guid? id)
-    {
-      if (id == null)
-      {
-        return NotFound();
-      }
-
-      var fato = await _fatoRepository.GetAll().Include(c => c.JulgamentoFatos)
-          .FirstOrDefaultAsync(m => m.FatoId == id);
-      if (fato == null)
-      {
-        return NotFound();
-      }
-
-      return View(fato);
-    }
-
-    public IActionResult Create()
-    {
-      return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Fato fato, Guid julgamentoFatosId)
-    {
-      if (ModelState.IsValid)
-      {
-        fato.JulgamentoFatosId = julgamentoFatosId;
-        _fatoRepository.Add(fato);
-        await _fatoRepository.SaveChangesAsync();
-        return Json(true);
-      }
-      return Json(false);
-    }
-
-    public async Task<IActionResult> Edit(Guid? id)
-    {
-      if (id == null) return NotFound();
-
-      var fato = await _fatoRepository.GetByIdAsync(id.Value);
-
-      if (fato == null) return NotFound();
-      
-      return View(fato);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid id,Fato fato)
-    {
-      if (id != fato.FatoId) return NotFound();
-      
-      if (ModelState.IsValid)
-      {
-        try
+        public FatoController(IFatoRepository fatoRepository)
         {
-          _fatoRepository.Update(fato);
-          await _fatoRepository.SaveChangesAsync();
+            _fatoRepository = fatoRepository;
         }
-        catch (DbUpdateConcurrencyException)
+        public async Task<IActionResult> Index(Guid julgamentoFatosId, Guid turmaId)
         {
-
-          if (!FatoExists(fato.FatoId)) return NotFound();
-          
-          throw;
-
+            ViewBag.JulgamentoId = julgamentoFatosId;
+            ViewBag.TurmaId = turmaId;
+            var a = await _fatoRepository.GetAll().Where(c => c.JulgamentoFatosId == julgamentoFatosId).ToListAsync();
+            return View(a);
         }
-        return Json(true);
-      }
-      return Json(false);
+
+        public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fato = await _fatoRepository.GetAll().Include(c => c.JulgamentoFatos)
+                .FirstOrDefaultAsync(m => m.FatoId == id);
+            if (fato == null)
+            {
+                return NotFound();
+            }
+
+            return View(fato);
+        }
+
+        public IActionResult Create(Guid julgamentoFatosId, Guid turmaId)
+        {
+            ViewBag.JulgamentoId = julgamentoFatosId;
+            ViewBag.TurmaId = turmaId;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Fato fato, Guid julgamentoFatosId, Guid turmaId)
+        {
+            if (ModelState.IsValid)
+            {
+                fato.JulgamentoFatosId = julgamentoFatosId;
+                fato.TurmaId = turmaId;
+                _fatoRepository.Add(fato);
+                await _fatoRepository.SaveChangesAsync();
+                return RedirectToAction(nameof(Index), new { julgamentoFatosId, turmaId});
+            }
+            ViewBag.JulgamentoId = julgamentoFatosId;
+            ViewBag.TurmaId = turmaId;
+            return View();
+        }
+
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null) return NotFound();
+
+            var fato = await _fatoRepository.GetByIdAsync(id.Value);
+
+            if (fato == null) return NotFound();
+
+            return View(fato);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, Fato fato)
+        {
+            if (id != fato.FatoId) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _fatoRepository.Update(fato);
+                    await _fatoRepository.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    if (!FatoExists(fato.FatoId)) return NotFound();
+
+                    throw;
+
+                }
+                return Json(true);
+            }
+            return Json(false);
+        }
+
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null) return NotFound();
+
+            var fato = await _fatoRepository.GetByIdAsync(id.Value);
+
+            if (fato == null) return NotFound();
+
+            return View(fato);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            _fatoRepository.Remove(id);
+            await _fatoRepository.SaveChangesAsync();
+            return Json(true);
+        }
+
+        private bool FatoExists(Guid id)
+        {
+            return _fatoRepository.GetAll().Any(e => e.FatoId == id);
+        }
     }
-
-    public async Task<IActionResult> Delete(Guid? id)
-    {
-      if (id == null) return NotFound();
-
-      var fato = await _fatoRepository.GetByIdAsync(id.Value);
-
-      if (fato == null) return NotFound();
-
-      return View(fato);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(Guid id)
-    {
-      _fatoRepository.Remove(id);
-      await _fatoRepository.SaveChangesAsync();
-      return Json(true);
-    }
-
-    private bool FatoExists(Guid id)
-    {
-      return _fatoRepository.GetAll().Any(e => e.FatoId == id);
-    }
-  }
 }

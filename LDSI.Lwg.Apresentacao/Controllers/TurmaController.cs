@@ -26,8 +26,10 @@ namespace LDSI.Lwg.Apresentacao.Controllers
           _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index() 
-            => View(_turmaRepository.GetAll().Include(c=> c.Professor).ToList());
+        public async Task<IActionResult> Index()
+        {
+            return View(_turmaRepository.GetAll().Include(c => c.Professor).ToList());
+        }
 
         public async Task<IActionResult> Details(Guid? id)
         {

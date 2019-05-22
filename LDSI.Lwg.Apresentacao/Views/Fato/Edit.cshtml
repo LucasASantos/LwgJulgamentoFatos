@@ -1,17 +1,6 @@
 @model LDSI.Lwg.Apresentacao.Models.Fato
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h4>Fato</h4>
 <hr />
@@ -41,20 +30,12 @@
                 <span asp-validation-for="Topicos" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JulgamentoFatosId" class="control-label"></label>
-                <input asp-for="JulgamentoFatosId" class="form-control" />
-                <span asp-validation-for="JulgamentoFatosId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
-
-</body>
-</html>

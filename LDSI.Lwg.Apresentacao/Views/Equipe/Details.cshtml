@@ -1,27 +1,12 @@
 @model LDSI.Lwg.Apresentacao.Models.Equipe
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <div>
     <h4>Equipe</h4>
     <hr />
-    <dl class="row">
-    </dl>
+    <dl class="row"></dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.EquipeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-</body>
-</html>

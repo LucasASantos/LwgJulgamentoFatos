@@ -15,8 +15,7 @@ namespace LDSI.Lwg.Apresentacao.Models
         public TimeSpan TempoExibicao { get; set; }
         public StatusJugamentoFatos Status { get; set; }
         public string UserId { get; set; }
-
-        public int tempoExibicao { set => TempoExibicao = TimeSpan.FromMinutes(value); }
+        public int tempoExibicao { get => TempoExibicao.Minutes; set => TempoExibicao = TimeSpan.FromMinutes(value); }
 
 
 

@@ -31,7 +31,9 @@ namespace LDSI.Lwg.Apresentacao.Controllers
         public async Task<IActionResult> Index(Guid turmaId)
         {
             ViewBag.TurmaId = turmaId;
-            return View(await _julgamentoFatosRepository.GetJulagementosOfTurmasAsync(turmaId));
+            var a = await _julgamentoFatosRepository.GetAll().ToListAsync();
+            var b = await _julgamentoFatosRepository.GetJulagementosOfTurmasAsync(turmaId);
+            return turmaId == Guid.Empty ? View(a):View(b);
         }
 
 
@@ -53,7 +55,7 @@ namespace LDSI.Lwg.Apresentacao.Controllers
                 julgamentoFatos.UserId = await _userManager.GetUserIdAsync(await _userManager.GetUserAsync(User));
                 _julgamentoFatosRepository.Add(julgamentoFatos);
                 await _julgamentoFatosRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Fato", new { julgamentoFatosId =  julgamentoFatos.JulgamentoFatosId, turmaId});
             }
             return View(julgamentoFatos);
         }

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LDSI.Lwg.Apresentacao.Models.AlunoTurma>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>Alunos da Turma - @(Model?.FirstOrDefault()?.Turma?.Codigo ?? ViewBag.CodTurma) </h1>
+
+<p>
+    <a asp-action="Create" asp-route-turmaId="@ViewBag.TurmaId">Adicionar Aluno</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Aluno.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aluno.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aluno.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aluno.Email)
+                </td>
+                <td>
+                    <form asp-action="DeleteConfirmed" method="post">
+                        <input type="hidden" name="AlunoId" value="@item.AlunoId" />
+                        <input type="hidden" name="TurmaId" value="@item.TurmaId" />
+
+                        <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"></button>
+                    </form>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

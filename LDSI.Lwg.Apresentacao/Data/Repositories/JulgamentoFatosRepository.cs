@@ -15,9 +15,10 @@ namespace LDSI.Lwg.Apresentacao.Data.Repositories
     {
     }
 
-        public  Task<List<JulgamentoFatos>> GetJulagementosOfTurmasAsync(Guid turmaId) => base
-            .GetAll()
-            .Where(c => c.Fatos != null && c.Fatos.Any(f => f.TurmaId == turmaId))
-            .ToListAsync();
+        public  Task<List<JulgamentoFatos>> GetJulagementosOfTurmasAsync(Guid turmaId)
+        {
+            var a = Db.Set<Fato>().Where(f => f.TurmaId == turmaId).Select(f => f.JulgamentoFatosId);
+            return GetAll().Where(j => a.Any(id => id == j.JulgamentoFatosId)).Include(c=> c.Professor).ToListAsync();
+        }
   }
 }

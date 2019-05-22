@@ -14,7 +14,7 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
         {
 
         }
-
+        public DbSet<AlunoTurma> AlunoTurmas { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>(entity => entity.Property(m => m.Id).HasMaxLength(80));
@@ -45,11 +45,14 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
             {
                 i.Property(o => o.Verdadeiro).HasConversion<int>();
             });
+            builder.Entity<JulgamentoFatos>().Ignore(c => c.tempoExibicao);
 
 
             base.OnModelCreating(builder);
         }
 
         public DbSet<LDSI.Lwg.Apresentacao.Models.AlunoTurma> AlunoTurma { get; set; }
+
+        public DbSet<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos> JulgamentoFatos { get; set; }
     }
 }

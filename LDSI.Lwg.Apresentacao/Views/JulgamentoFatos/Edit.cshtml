@@ -1,17 +1,6 @@
 @model LDSI.Lwg.Apresentacao.Models.JulgamentoFatos
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h4>JulgamentoFatos</h4>
 <hr />
@@ -26,9 +15,9 @@
                 <span asp-validation-for="TamanhoEquipe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TempoExibicao" class="control-label"></label>
-                <input asp-for="TempoExibicao" class="form-control" />
-                <span asp-validation-for="TempoExibicao" class="text-danger"></span>
+                <label asp-for="tempoExibicao" class="control-label"></label>
+                <input asp-for="tempoExibicao" class="form-control" />
+                <span asp-validation-for="tempoExibicao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
@@ -50,6 +39,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-</body>
-</html>
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }

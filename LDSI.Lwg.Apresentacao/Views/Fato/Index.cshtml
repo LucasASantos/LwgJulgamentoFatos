@@ -1,19 +1,9 @@
 @model IEnumerable<LDSI.Lwg.Apresentacao.Models.Fato>
 
-@{
-    Layout = null;
-}
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
-    <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus"></a> Criar novo Fato</h3>
+    <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus" asp-route-julgamentoFatosId="@ViewBag.JulgamentoId" asp-route-turmaId="@ViewBag.TurmaId"></a> Criar novo Fato</h3>
 </p>
 <table class="table">
     <thead>
@@ -30,44 +20,30 @@
             <th>
                 @Html.DisplayNameFor(model => model.Topicos)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JulgamentoFatosId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JulgamentoFatos)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Texto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Verdadeiro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ordem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topicos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JulgamentoFatosId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JulgamentoFatos.JulgamentoFatosId)
-            </td>
-            <td>
-                <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.FatoId"></a> |
-                <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.FatoId"></a> |
-                <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.FatoId"></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.OrderBy(c => c.Ordem))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Texto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Verdadeiro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ordem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topicos)
+                </td>
+                <td>
+                    <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.FatoId"></a> |
+                    <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.FatoId"></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-</body>
-</html>

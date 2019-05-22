@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TamanhoEquipe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TempoExibicao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Professor)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamanhoEquipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TempoExibicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Professor.Nome)
+                </td>
+                <td>
+                    <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.JulgamentoFatosId"></a> |
+                    <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.JulgamentoFatosId"></a>
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-action="Index" asp-controller="Fato" asp-route-turmaId="@ViewBag.TurmaId" asp-route-julgamentoFatosId="@item.JulgamentoFatosId">Fatos</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
