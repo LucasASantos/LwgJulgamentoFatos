@@ -45,6 +45,10 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
             {
                 i.Property(o => o.Verdadeiro).HasConversion<int>();
             });
+            builder.Entity<Integrante>(i =>
+            {
+                i.Property(o => o.EhLider).HasConversion<int>();
+            });
             builder.Entity<JulgamentoFatos>().Ignore(c => c.tempoExibicao);
 
 
@@ -54,5 +58,7 @@ namespace LDSI.Lwg.Apresentacao.Data.Context
         public DbSet<LDSI.Lwg.Apresentacao.Models.AlunoTurma> AlunoTurma { get; set; }
 
         public DbSet<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos> JulgamentoFatos { get; set; }
+
+        public DbSet<LDSI.Lwg.Apresentacao.Models.Fato> Fato { get; set; }
     }
 }

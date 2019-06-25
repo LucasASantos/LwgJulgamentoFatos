@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos>
+@using LDSI.Lwg.Apresentacao.Enums;
 
 <table class="table">
     <thead>
@@ -36,11 +37,24 @@
                     @Html.DisplayFor(modelItem => item.Professor.Nome)
                 </td>
                 <td>
-                    <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.JulgamentoFatosId"></a> |
-                    <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.JulgamentoFatosId"></a>
+                    @if (User.Claims.Any(c => c.Value == "Professor"))
+                    {
+                        <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="AlterarStatusJF" asp-route-julgamentoFatosId="@item.JulgamentoFatosId"></a>
+                    }
                 </td>
                 <td>
-                    <a class="btn btn-info" asp-action="Index" asp-controller="Fato" asp-route-turmaId="@ViewBag.TurmaId" asp-route-julgamentoFatosId="@item.JulgamentoFatosId">Fatos</a>
+                    @if (User.Claims.Any(c => c.Value == "Professor"))
+                    {
+                        <a class="btn btn-info" asp-action="Index" asp-controller="Fato" asp-route-turmaId="@ViewBag.TurmaId" asp-route-julgamentoFatosId="@item.JulgamentoFatosId">Fatos</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-info" asp-action="Index" asp-controller="Equipe" asp-route-julgamentoFatosId="@item.JulgamentoFatosId">Entrar no Julgamento</a>
+                        @if (item.Status == StatusJugamentoFatos.Execucao)
+                        {
+                            <a class="btn btn-info" asp-action="JulgamentoFatosExec" asp-route-julgamentoFatosId="@item.JulgamentoFatosId">Equipes</a>
+                        }
+                    }
                 </td>
             </tr>
         }

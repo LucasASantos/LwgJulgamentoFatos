@@ -10,6 +10,7 @@ namespace LDSI.Lwg.Apresentacao.Models
       EquipeId = Guid.NewGuid();
     }
     public Guid EquipeId { get; set; }
+    public Guid JulgamentoFatosId { get; set; }
     public virtual List<Resposta> Respostas { get; set; }
     public virtual List<Integrante> Integrantes { get; set; }
 

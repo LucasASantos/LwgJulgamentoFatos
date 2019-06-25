@@ -9,6 +9,7 @@ using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using LDSI.Lwg.Apresentacao.Enums;
 
 namespace LDSI.Lwg.Apresentacao.Controllers
 {
@@ -28,6 +29,13 @@ namespace LDSI.Lwg.Apresentacao.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if(HttpContext.User.Claims.Any(c=> c.Value == TipoUsuario.Aluno.ToString()))
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var disciplina = _disciplinaRepository.GetAll().Where(c => c.CursoId == user.CursoId);
+                var turmas = _turmaRepository.GetAll().Where(c => disciplina.Any(d => c.DisciplinaId == d.DisciplinaId)).Include(c=>c.Professor);
+                return View(turmas);
+            }
             return View(_turmaRepository.GetAll().Include(c => c.Professor).ToList());
         }
 
@@ -126,7 +134,6 @@ namespace LDSI.Lwg.Apresentacao.Controllers
             }
 
             var turma = await _turmaRepository.GetAll()
-                .Include(t => t.Disciplina)
                 .Include(t => t.Professor)
                 .FirstOrDefaultAsync(m => m.TurmaId == id);
             if (turma == null)

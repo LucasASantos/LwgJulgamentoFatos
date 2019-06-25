@@ -2,11 +2,12 @@
 
 @{Layout = "~/Views/Shared/_Layout.cshtml"; }
 <p>
-    <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus"></a> Criar nova Equipe</h3>
+    <h3><a asp-action="Create" asp-route-julgamentoFatosId="@ViewBag.JulgamentoFatosId" class="btn btn-success glyphicon glyphicon-plus"></a> Criar nova Equipe</h3>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>Integrantes</th>
             <th></th>
         </tr>
     </thead>
@@ -14,10 +15,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                @*<td>@{string.Join(", ", (List<ApplicationUser> ViewBag.Alunos).FindAll(c=> item.Integrantes.Any(i=> i.UserId == c.Id)).Select(c=> c.Nome)</td>*@
                 <td>
-                    <a class="btn btn-warning glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.EquipeId"></a> |
-                    <a class="btn btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.EquipeId"></a> |
-                    <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.EquipeId"></a>
+                    <a class="btn btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.EquipeId" asp-route-julgamentoFatosId="@ViewBag.JulgamentoFatosId"></a>
                 </td>
             </tr>
         }

@@ -1,10 +1,35 @@
-@model IEnumerable<LDSI.Lwg.Apresentacao.Models.Fato>
+﻿@model IEnumerable<LDSI.Lwg.Apresentacao.Models.Fato>
 
-@{Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{
+    ViewData["Title"] = "Alterar Status JF";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<p>
-    <h3><a asp-action="Create" class="btn btn-success glyphicon glyphicon-plus" asp-route-julgamentoFatosId="@ViewBag.JulgamentoId" asp-route-turmaId="@ViewBag.TurmaId"></a> Criar novo Fato</h3>
-</p>
+<h1>Julgamento de fatos - Turma @Model.Select(c => c.Turma).FirstOrDefault().Codigo </h1>
+<hr />
+
+@{
+    var itens = Html.GetEnumSelectList<LDSI.Lwg.Apresentacao.Enums.StatusJugamentoFatos>();
+    itens.FirstOrDefault(c => c.Text == ViewBag.JulgamentoFatos.Status.ToString()).Selected = true;
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AlterarStatusJF" asp-route-julgamentoFatosId="@ViewBag.JulgamentoFatosId" method="post">
+            <label class="control-label">Status</label>
+            <select name="statusJF" class="form-control" asp-items="itens"></select>
+            <br/>
+            <button class="btn btn-primary" type="submit">
+                Salvar
+            </button>
+        </form>
+        
+    </div>
+</div>
+
+<h4>Fatos</h4>
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -43,5 +68,3 @@
         }
     </tbody>
 </table>
-
-<a asp-controller="JulgamentoFatos" asp-action="AlterarStatusJF" class="btn btn-primary" asp-route-julgamentoFatosId="@ViewBag.JulgamentoId">Voltar ao Julgamento de Fatos</a>

@@ -3,14 +3,16 @@ using System;
 using LDSI.Lwg.Apresentacao.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LDSI.Lwg.Apresentacao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190523175120_JulgamentoFatosEquipes")]
+    partial class JulgamentoFatosEquipes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,6 +134,7 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                         .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
 
                     b.Property<byte[]>("JulgamentoFatosId")
+                        .IsRequired()
                         .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
 
                     b.HasKey("EquipeId");
@@ -172,7 +175,7 @@ namespace LDSI.Lwg.Apresentacao.Migrations
                     b.Property<byte[]>("IntegranteId")
                         .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
 
-                    b.Property<int>("EhLider");
+                    b.Property<bool>("EhLider");
 
                     b.Property<byte[]>("EquipeId")
                         .IsRequired()

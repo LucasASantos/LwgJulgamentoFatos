@@ -1,13 +1,15 @@
 @model IEnumerable<LDSI.Lwg.Apresentacao.Models.JulgamentoFatos>;
 @using LDSI.Lwg.Apresentacao.Enums;
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var caminhoListJF = "../JulgamentoFatos/Partial/_ListJF";
 }
-
-<p>
-    <a class="btn btn-info" asp-action="Create" asp-route-turmaId="@ViewBag.TurmaId">Criar novo julgamento de fatos</a>
-</p>
+@if (User.Claims.Any(c => c.Value == "Professor"))
+{
+    <p>
+        <a class="btn btn-info" asp-action="Create" asp-route-turmaId="@ViewBag.TurmaId">Criar novo julgamento de fatos</a>
+    </p>
+}
 
 
 @if (Model.Any(c => c.Status == StatusJugamentoFatos.Execucao))
@@ -16,7 +18,7 @@
     @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Execucao).ToList())
     <hr />
 }
-@if (Model.Any(c => c.Status == StatusJugamentoFatos.Criacao))
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Criacao) && User.Claims.Any(c => c.Value == "Professor"))
 {
     <h4>Em criação</h4>
     @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Criacao).ToList())
@@ -28,7 +30,7 @@
     @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Preparacao).ToList())
     <hr />
 }
-@if (Model.Any(c => c.Status == StatusJugamentoFatos.Execucao))
+@if (Model.Any(c => c.Status == StatusJugamentoFatos.Finalizado))
 {
     <h4>Finalizado</h4>
     @await Html.PartialAsync(caminhoListJF, Model.Where(c => c.Status == StatusJugamentoFatos.Finalizado).ToList())

@@ -46,9 +46,11 @@
                     </td>
                     <td>
                         <a class="btn btn-info" asp-action="Index" asp-controller="JulgamentoFatos" asp-route-turmaId="@item.TurmaId">Julgamentos de fatos</a>
-                        <a class="btn btn-info" asp-action="Index" asp-controller="AlunosTurma" asp-route-turmaId="@item.TurmaId">Alunos</a>
-
-                    </td>
+                        @if (User.Claims.Any(c => c.Value == "Professor"))
+                        {
+                            <a class="btn btn-info" asp-action="Index" asp-controller="AlunosTurma" asp-route-turmaId="@item.TurmaId">Alunos</a>
+                        }
+                        </td>
                 </tr>
             }
         </tbody>

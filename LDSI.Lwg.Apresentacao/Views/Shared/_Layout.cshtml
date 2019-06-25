@@ -25,6 +25,28 @@
     </environment>
 
 
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/Popper/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
+        <script src="~/lib/pace/pace.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+        <script src="~/lib/signalr/signalr.js"></script>
+        <!-- Only for demo purpose -->
+        <script src="~/js/skin.config.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/signalr/signalr.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/Popper/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
+        <script src="~/lib/pace/pace.min.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
 </head>
 <body>
 
@@ -53,27 +75,6 @@
     </div>
     <!-- End wrapper-->
 
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/Popper/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
-        <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
-        <script src="~/lib/pace/pace.js"></script>
-        <script src="~/js/script.js" asp-append-version="true"></script>
-
-        <!-- Only for demo purpose -->
-        <script src="~/js/skin.config.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/Popper/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
-        <script src="~/lib/pace/pace.min.js"></script>
-        <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
-        <script src="~/js/script.js" asp-append-version="true"></script>
-    </environment>
 
     @RenderSection("scripts", required: false)
 </body>

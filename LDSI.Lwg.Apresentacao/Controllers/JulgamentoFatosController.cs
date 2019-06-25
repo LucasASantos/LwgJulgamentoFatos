@@ -9,31 +9,29 @@ using LDSI.Lwg.Apresentacao.Data.Context;
 using LDSI.Lwg.Apresentacao.Data.Repositories.Interfaces;
 using LDSI.Lwg.Apresentacao.Models;
 using Microsoft.AspNetCore.Identity;
+using LDSI.Lwg.Apresentacao.Enums;
 
 namespace LDSI.Lwg.Apresentacao.Controllers
 {
     public class JulgamentoFatosController : Controller
     {
         private readonly IJulgamentoFatosRepository _julgamentoFatosRepository;
+        private readonly IFatoRepository _fatoRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public JulgamentoFatosController(IJulgamentoFatosRepository julgamentoFatosRepository, UserManager<ApplicationUser> userManager)
+        public JulgamentoFatosController(IJulgamentoFatosRepository julgamentoFatosRepository, IFatoRepository fatoRepository, UserManager<ApplicationUser> userManager)
         {
             _julgamentoFatosRepository = julgamentoFatosRepository;
             _userManager = userManager;
+            _fatoRepository = fatoRepository;
         }
-
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _julgamentoFatosRepository.GetAll().Include(p => p.Professor).ToListAsync());
-        //}
 
         public async Task<IActionResult> Index(Guid turmaId)
         {
             ViewBag.TurmaId = turmaId;
             var a = await _julgamentoFatosRepository.GetAll().ToListAsync();
             var b = await _julgamentoFatosRepository.GetJulagementosOfTurmasAsync(turmaId);
-            return turmaId == Guid.Empty ? View(a):View(b);
+            return turmaId == Guid.Empty ? View(a) : View(b);
         }
 
 
@@ -42,9 +40,6 @@ namespace LDSI.Lwg.Apresentacao.Controllers
             ViewBag.TurmaId = turmaId;
             return View();
         }
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -55,10 +50,51 @@ namespace LDSI.Lwg.Apresentacao.Controllers
                 julgamentoFatos.UserId = await _userManager.GetUserIdAsync(await _userManager.GetUserAsync(User));
                 _julgamentoFatosRepository.Add(julgamentoFatos);
                 await _julgamentoFatosRepository.SaveChangesAsync();
-                return RedirectToAction("Index","Fato", new { julgamentoFatosId =  julgamentoFatos.JulgamentoFatosId, turmaId});
+                return RedirectToAction("Index", "Fato", new { julgamentoFatosId = julgamentoFatos.JulgamentoFatosId, turmaId });
             }
             return View(julgamentoFatos);
         }
+
+        public async Task<ActionResult> AlterarStatusJF(Guid julgamentoFatosId)
+        {
+            ViewBag.JulgamentoFatosId = julgamentoFatosId;
+            ViewBag.JulgamentoFatos = _julgamentoFatosRepository.GetById(julgamentoFatosId);
+            return View(_fatoRepository.GetAll().Include(c => c.Turma).Where(c => c.JulgamentoFatosId == julgamentoFatosId));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AlterarStatusJF([FromForm]string statusJF, Guid julgamentoFatosId)
+        {
+            var status = (StatusJugamentoFatos)int.Parse(statusJF);
+            var julgamentofatos = _julgamentoFatosRepository.GetById(julgamentoFatosId);
+
+            julgamentofatos.Status = status;
+            _julgamentoFatosRepository.Update(julgamentofatos);
+            await _julgamentoFatosRepository.SaveChangesAsync();
+
+            if (status == StatusJugamentoFatos.Execucao)
+            {
+
+            }
+
+            ViewBag.JulgamentoFatosId = julgamentoFatosId;
+            ViewBag.JulgamentoFatos = julgamentofatos;
+
+            return View(_fatoRepository.GetAll().Include(c => c.Turma).Where(c => c.JulgamentoFatosId == julgamentoFatosId));
+
+        }
+
+
+        public async Task<ActionResult> JulgamentoFatosExec(Guid julgamentoFatosId)
+        {
+            return View();
+        }
+    }
+
+
+
+
 
         //public async Task<IActionResult> Edit(Guid? id)
         //{
@@ -142,4 +178,4 @@ namespace LDSI.Lwg.Apresentacao.Controllers
         //    return _context.JulgamentoFatoses.Any(e => e.JulgamentoFatosId == id);
         //}
     }
-}
+
